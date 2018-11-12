@@ -1,0 +1,26 @@
+{
+  "name": "gw-commit-lint",
+  "version": "0.0.3",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/329530588/gw-commit-lint.git"
+  },
+  "bin": {
+    "gw-commit-lint": "index.js"
+  },
+  "dependencies": {
+    "chalk": "2.4.1",
+    "git-root": "^1.0.0"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/329530588/gw-commit-lint/issues"
+  },
+  "homepage": "https://github.com/329530588/gw-commit-lint#readme"
+}
