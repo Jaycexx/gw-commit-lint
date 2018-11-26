@@ -7,7 +7,7 @@
 
 `types`：[Array]增加自定义commit types，默认的types：`feat|fix|polish|docs|style|refactor|perf|test|workflow|ci|chore|types|build|misc`。
 
-`formats`：[Array]：自定义规则，如果配置了该项，默认的规则将不生效。默认的规则：`/^(feat|fix|polish|docs|style|refactor|perf|test|workflow|ci|chore|types|build|misc)(\(.+\))?: .+/`，参照[https://www.conventionalcommits.org/zh/v1.0.0-beta.2/](https://www.conventionalcommits.org/zh/v1.0.0-beta.2/)。
+`formats`：[Array]：自定义规则，如果配置了该项，默认的规则将不生效。默认的规则：`/^(feat|fix|polish|docs|style|refactor|perf|test|workflow|ci|chore|types|build|misc)(\(.+\))?: .+/`，规则参考自：[https://www.conventionalcommits.org/zh/v1.0.0-beta.2/](https://www.conventionalcommits.org/zh/v1.0.0-beta.2/)。
 
 #### Install：
 `npm install gw-commit-lint`
