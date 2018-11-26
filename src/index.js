@@ -14,22 +14,72 @@ console.log('[root]', appRoot);
 console.log('[msgPath]', msgPath);
 console.log('[pkg.json]', pkgConifg);
 
+const regExpParser = (str) => {
+    let left = str.indexOf('/');
+    let right = str.lastIndexOf('/');
+    let result;
+    if(left !== -1 && right !== -1 && right !== left) {
+        result = new RegExp(str.slice(left + 1, right), str.slice(right + 1));
+    } else {
+        result = new RegExp(str);
+    }
+    return result;
+};
+
 module.exports = function gwCommitLint() {
     if(!msgPath) {
         console.error(chalk.red('[gw-commit-lint]: GIT_PARAMS is undefined.'));
         process.exit(1);
     }
-    
-    // find git path
+    // 配置格式验证
     let gitRoot = findUp.sync('.git');
     const msg = fs.readFileSync(path.resolve(gitRoot, '../', msgPath), 'utf-8').trim();
+
+    // 可以放过的格式，默认过滤Merge branch
+    let excludeExps = exclude || ['/^Merge branch/'];
+    if(excludeExps) {
+        if(!Array.isArray(excludeExps)) {
+            console.error(chalk.red('[gw-commit-lint][error-config-type]: exclude is expected to be Array.'));
+            process.exit(1);
+        }
+        excludeExps.forEach(str => {
+            const reg = regExpParser(str);
+            if(reg.test(msg)) {
+                process.exit(0);
+            }
+        });
+    }
+
+    // 限定的格式，如果配置了formats，就不验证默认的规则
+    if(formats) {
+        if(!Array.isArray(formats)) {
+            console.error(chalk.red('[gw-commit-lint][error-config-type]: formats is expected to be Array.'));
+            process.exit(1);
+        }
+        formats.forEach(str => {
+            const reg = regExpParser(str);
+            if(reg.test(msg)) {
+                process.exit(0);
+            } else {
+                process.exit(1);
+            }
+        });
+    }
+
+    let newTypes;
+    if(types) {
+        if(!Array.isArray(types)) {
+            console.error(chalk.red('[gw-commit-lint][error-config-type]: types is expected to be Array.'));
+            process.exit(1);
+        }
+        newTypes = types.join('|') ? `|${types.join('|')}` : '';
+    }
+    
     console.log('[msg]', msg);
-    const commitRE = /^(revert: )?(feat|fix|polish|docs|style|refactor|perf|test|workflow|ci|chore|types|build|misc)(\(.+\))?: .{0,50}/;
-    const mergeRE = /^Merge branch/;
+    let commitRE = regExpParser(`/^(feat|fix|polish|docs|style|refactor|perf|test|workflow|ci|chore|types|build|misc${newTypes})(\(.+\))?: .+/`);
 
-    exclude.forEach()
 
-    if (!commitRE.test(msg) && !mergeRE.test(msg)) {
+    if (!commitRE.test(msg)) {
         console.error(
             `  ${chalk.bgRed.white(' ERROR ')} ${chalk.red(`invalid commit message format.`)}\n\n` +
             chalk.red(`  Proper commit message format is required for automated changelog generation. Examples:\n\n`) +
