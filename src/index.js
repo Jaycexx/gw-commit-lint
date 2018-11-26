@@ -92,5 +92,5 @@ module.exports = function gwCommitLint() {
         process.exit(1)
     }
     console.log(chalk.green('pass'));
-    process.exit(1) // debug用：无论如何都不通过
+    process.exit(0);
 }
