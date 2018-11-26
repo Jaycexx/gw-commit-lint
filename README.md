@@ -1,7 +1,7 @@
 # gw-commit-lint
 简单可配置的commit约束工具.
 
-#### config:
+#### Config:
 
 `exclude`：[Array]配置可以跳过验证的格式，默认跳过Merge Request的commit
 
@@ -9,10 +9,10 @@
 
 `formats`：[Array]：自定义规则，如果配置了该项，默认的规则将不生效。默认的规则：`/^(feat|fix|polish|docs|style|refactor|perf|test|workflow|ci|chore|types|build|misc)(\(.+\))?: .+/`，参照[https://www.conventionalcommits.org/zh/v1.0.0-beta.2/](https://www.conventionalcommits.org/zh/v1.0.0-beta.2/)
 
-#### install：
+#### Install：
 `npm install gw-commit-lint`
 
-#### usage:
+#### Usage:
 建议结合husky使用
 ```json
 "husky": {
@@ -23,7 +23,7 @@
 ```
 
 
-#### example:
+#### Example:
 
 ```json
  "gw-commit-lint" : {
@@ -40,4 +40,5 @@
     ]
   },
 ```
-#### TODO: test should be add
+#### TODO: 
+test should be add
