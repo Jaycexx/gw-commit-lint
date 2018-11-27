@@ -14,6 +14,7 @@
 gw-commit-lint默认集成了一套规则：
 
 > /^(feat|fix|polish|docs|style|refactor|perf|test|workflow|ci|chore|types|build|misc)(\(.+\))?: .+/
+type(scope?): subject  #scope is optional
 
 规则参考自：[https://www.conventionalcommits.org/zh/v1.0.0-beta.2/](https://www.conventionalcommits.org/zh/v1.0.0-beta.2/)。
 
