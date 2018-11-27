@@ -2,7 +2,7 @@
 简单可配置的commit约束工具。
 
 #### Usage:
-安装`npm install gw-commit-lint`。
+安装`npm install --save-dev gw-commit-lint`。
 在`package.json`中配置，建议结合[husky](https://github.com/typicode/husky)使用。
 ```json
 "husky": {
