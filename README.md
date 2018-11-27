@@ -38,7 +38,7 @@ gw-commit-lint默认集成了一套规则：
       "lalala"
     ],
     "formats": [
-      "/a complex regExp formats here/img"，
+      "/a complex regExp formats here/img",
       "string is also ok"
     ]
   },
