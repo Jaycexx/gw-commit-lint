@@ -6,7 +6,7 @@ let findUp = require('find-up');
 let appRoot = require('app-root-path').path;
 const msgPath = process.env.HUSKY_GIT_PARAMS;
 const pkgConifg = readPkg.sync()['gw-commit-lint'];
-const { exclude, types, formats } = pkgConifg;
+const { exclude, types, formats } = pkgConifg || {};
 
 // 配置检测
 //【msgPath】.git/COMMIT_EDITMSG
@@ -26,20 +26,23 @@ const regExpParser = (str) => {
     return result;
 };
 
-module.exports = function gwCommitLint() {
-    if(!msgPath) {
-        console.error(chalk.red('[gw-commit-lint]: GIT_PARAMS is undefined.'));
+module.exports = function gwCommitLint(msg) {
+
+    if(!msgPath && !msg) {
+        console.error(chalk.red(`[gw-commit-lint]: GIT_PARAMS is needed. But got ${msgPath}`));
         process.exit(1);
     }
+    
+    msg = msg ? msg : gitMsg;
+
     // 配置格式验证
     let gitRoot = findUp.sync('.git');
-    const msg = fs.readFileSync(path.resolve(gitRoot, '../', msgPath), 'utf-8').trim();
-
+    const gitMsg = fs.readFileSync(path.resolve(gitRoot, '../', msgPath), 'utf-8').trim();
     // 可以放过的格式，默认过滤Merge branch
     let excludeExps = exclude || ['/^Merge branch/'];
     if(excludeExps) {
         if(!Array.isArray(excludeExps)) {
-            console.error(chalk.red('[gw-commit-lint][error-config-type]: exclude is expected to be Array.'));
+            console.error(chalk.red(`[gw-commit-lint][error-config-type]: exclude is expected to be Array. Got ${excludeExps}`));
             process.exit(1);
         }
         excludeExps.forEach(str => {
@@ -53,7 +56,7 @@ module.exports = function gwCommitLint() {
     // 限定的格式，如果配置了formats，就不验证默认的规则
     if(formats) {
         if(!Array.isArray(formats)) {
-            console.error(chalk.red('[gw-commit-lint][error-config-type]: formats is expected to be Array.'));
+            console.error(chalk.red(`[gw-commit-lint][error-config-type]: formats is expected to be Array. Got ${formats}`));
             process.exit(1);
         }
         formats.forEach(str => {
@@ -69,7 +72,7 @@ module.exports = function gwCommitLint() {
     let newTypes;
     if(types) {
         if(!Array.isArray(types)) {
-            console.error(chalk.red('[gw-commit-lint][error-config-type]: types is expected to be Array.'));
+            console.error(chalk.red(`[gw-commit-lint][error-config-type]: types is expected to be Array. Got ${formats}`));
             process.exit(1);
         }
         newTypes = types.join('|') ? `|${types.join('|')}` : '';
