@@ -2,7 +2,7 @@
 简单可配置的commit约束工具。
 
 #### Usage:
-安装`npm install gw-commit-lint`。
+安装`npm install --save-dev gw-commit-lint`。
 在`package.json`中配置，建议结合[husky](https://github.com/typicode/husky)使用。
 ```json
 "husky": {
@@ -13,7 +13,7 @@
 ```
 gw-commit-lint默认集成了一套规则：
 
-> /^(feat|fix|polish|docs|style|refactor|perf|test|workflow|ci|chore|types|build|misc)(\(.+\))?: .+/
+> type(scope?): subject              #scope is optional
 
 规则参考自：[https://www.conventionalcommits.org/zh/v1.0.0-beta.2/](https://www.conventionalcommits.org/zh/v1.0.0-beta.2/)。
 
