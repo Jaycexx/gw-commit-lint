@@ -10,9 +10,9 @@ const { exclude, types, formats } = pkgConifg || {};
 
 // 配置检测
 //【msgPath】.git/COMMIT_EDITMSG
-console.log('[root]', appRoot);
-console.log('[msgPath]', msgPath);
-console.log('[pkg.json]', pkgConifg);
+// console.log('[root]', appRoot);
+// console.log('[msgPath]', msgPath);
+// console.log('[pkg.json]', pkgConifg);
 
 const regExpParser = (str) => {
     let left = str.indexOf('/');
@@ -33,11 +33,11 @@ module.exports = function gwCommitLint(msg) {
         process.exit(1);
     }
     
-    msg = msg ? msg : gitMsg;
-
+    
     // 配置格式验证
     let gitRoot = findUp.sync('.git');
     const gitMsg = fs.readFileSync(path.resolve(gitRoot, '../', msgPath), 'utf-8').trim();
+    msg = msg ? msg : gitMsg;
     // 可以放过的格式，默认过滤Merge branch
     let excludeExps = exclude || ['/^Merge branch/'];
     if(excludeExps) {
@@ -69,7 +69,7 @@ module.exports = function gwCommitLint(msg) {
         });
     }
 
-    let newTypes;
+    let newTypes = '';
     if(types) {
         if(!Array.isArray(types)) {
             console.error(chalk.red(`[gw-commit-lint][error-config-type]: types is expected to be Array. Got ${formats}`));
@@ -78,9 +78,8 @@ module.exports = function gwCommitLint(msg) {
         newTypes = types.join('|') ? `|${types.join('|')}` : '';
     }
     
-    console.log('[msg]', msg);
+    // console.log('[msg]', msg);
     let commitRE = regExpParser(`/^(feat|fix|polish|docs|style|refactor|perf|test|workflow|ci|chore|types|build|misc${newTypes})(\(.+\))?: .+/`);
-
 
     if (!commitRE.test(msg)) {
         console.error(
@@ -89,11 +88,9 @@ module.exports = function gwCommitLint(msg) {
             `    ${chalk.green(`feat(compiler): add 'comments' here(#KJDS-12222)`)}\n` +
             `    ${chalk.green(`fix(v-model): handle events on blur(#kjds-13333)`)}\n\n` +
             chalk.red(`  See .github/COMMIT_CONVENTION.md for more details.\n`) +
-            chalk.red(`  About the rules: https://www.conventionalcommits.org/zh/v1.0.0-beta.2/ \n`)
+            chalk.red(`  About the rules: https://github.com/329530588/gw-commit-lint \n`)
         )
-        console.log(chalk.red('failed'));
         process.exit(1)
     }
-    console.log(chalk.green('pass'));
     process.exit(0);
 }
