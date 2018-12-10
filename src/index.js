@@ -4,7 +4,7 @@ const fs = require('fs');
 const readPkg = require('read-pkg');
 let findUp = require('find-up');
 let appRoot = require('app-root-path').path;
-const msgPath = process.env.HUSKY_GIT_PARAMS ? rocess.env.HUSKY_GIT_PARAMS :  process.env.GIT_PARAMS;
+const msgPath = process.env.HUSKY_GIT_PARAMS ? process.env.HUSKY_GIT_PARAMS : process.env.GIT_PARAMS;
 const pkgConifg = readPkg.sync()['gw-commit-lint'];
 const { exclude, types, formats } = pkgConifg || {};
 
