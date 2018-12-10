@@ -4,7 +4,7 @@ const fs = require('fs');
 const readPkg = require('read-pkg');
 let findUp = require('find-up');
 let appRoot = require('app-root-path').path;
-const msgPath = process.env.HUSKY_GIT_PARAMS;
+const msgPath = process.env.HUSKY_GIT_PARAMS ? rocess.env.HUSKY_GIT_PARAMS :  process.env.GIT_PARAMS;
 const pkgConifg = readPkg.sync()['gw-commit-lint'];
 const { exclude, types, formats } = pkgConifg || {};
 
@@ -29,7 +29,7 @@ const regExpParser = (str) => {
 module.exports = function gwCommitLint(msg) {
 
     if(!msgPath && !msg) {
-        console.error(chalk.red(`[gw-commit-lint]: GIT_PARAMS is needed. But got ${msgPath}`));
+        console.error(chalk.red(`[gw-commit-lint]: HUSKY_GIT_PARAMS/GIT_PARAMS is needed. But got ${msgPath}`));
         process.exit(1);
     }
     
