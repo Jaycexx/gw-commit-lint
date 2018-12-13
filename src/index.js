@@ -83,7 +83,7 @@ module.exports = function gwCommitLint(msg) {
 
     if (!commitRE.test(msg)) {
         console.error(
-            `  ${chalk.bgRed.white(' ERROR ')} ${chalk.red(`invalid commit message format.`)}\n\n` +
+            `  ${chalk.bgRed.white(' ERROR ')} ${chalk.red(`invalid commit message format: ${msg}.`)}\n\n` +
             chalk.red(`  Proper commit message format is required for automated changelog generation. Examples:\n\n`) +
             `    ${chalk.green(`feat(compiler): add 'comments' here(#KJDS-12222)`)}\n` +
             `    ${chalk.green(`fix(v-model): handle events on blur(#kjds-13333)`)}\n\n` +
