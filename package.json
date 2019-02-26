@@ -1,10 +1,10 @@
 {
   "name": "gw-commit-lint",
-  "version": "0.0.3-5",
+  "version": "0.0.4",
   "description": "simple and configurable way to lint commit message",
   "main": "index.js",
   "scripts": {
-    "test": "jest"
+    "test": "tape"
   },
   "repository": {
     "type": "git",
@@ -27,12 +27,15 @@
     "chalk": "2.4.1",
     "app-root-path": "2.1.0",
     "read-pkg": "4.0.1",
-    "find-up":"3.0.0"
+    "find-up": "3.0.0"
   },
   "author": "fokess",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/329530588/gw-commit-lint/issues"
   },
-  "homepage": "https://github.com/329530588/gw-commit-lint#readme"
+  "homepage": "https://github.com/329530588/gw-commit-lint#readme",
+  "devDependencies": {
+    "tape": "^4.10.1"
+  }
 }
