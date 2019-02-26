@@ -38,8 +38,8 @@ module.exports = function gwCommitLint(msg) {
     let gitRoot = findUp.sync('.git');
     const gitMsg = fs.readFileSync(path.resolve(gitRoot, '../', msgPath), 'utf-8').trim();
     msg = msg ? msg : gitMsg;
-    // 可以放过的格式，默认过滤Merge branch
-    let excludeExps = exclude || ['/^Merge branch/'];
+    // 可以放过的格式，默认过滤Merge 
+    let excludeExps = exclude || ['/^Merge/'];
     if(excludeExps) {
         if(!Array.isArray(excludeExps)) {
             console.error(chalk.red(`[gw-commit-lint][error-config-type]: exclude is expected to be Array. Got ${excludeExps}`));
